@@ -1,4 +1,3 @@
-
 import logging
 from pprint import pprint
 import boto3
@@ -6,13 +5,12 @@ from botocore.exceptions import ClientError
 import requests
 
 
-
-
 logger = logging.getLogger(__name__)
 
 
 class RekognitionLabel:
     """Encapsulates an Amazon Rekognition label."""
+
     def __init__(self, label, timestamp=None):
         """
         Initializes the label object.
@@ -21,10 +19,10 @@ class RekognitionLabel:
         :param timestamp: The time when the label was detected, if the label
                           was detected in a video.
         """
-        self.name = label.get('Name')
-        self.confidence = label.get('Confidence')
-        self.instances = label.get('Instances')
-        self.parents = label.get('Parents')
+        self.name = label.get("Name")
+        self.confidence = label.get("Confidence")
+        self.instances = label.get("Instances")
+        self.parents = label.get("Parents")
         self.timestamp = timestamp
 
     def to_dict(self):
@@ -34,9 +32,9 @@ class RekognitionLabel:
         """
         rendering = {}
         if self.name is not None:
-            rendering['name'] = self.name
+            rendering["name"] = self.name
         if self.timestamp is not None:
-            rendering['timestamp'] = self.timestamp
+            rendering["timestamp"] = self.timestamp
         return rendering
 
 
@@ -45,6 +43,7 @@ class RekognitionImage:
     Encapsulates an Amazon Rekognition image. This class is a thin wrapper
     around parts of the Boto3 Amazon Rekognition API.
     """
+
     def __init__(self, image, image_name, rekognition_client):
         """
         Initializes the image object.
@@ -65,8 +64,9 @@ class RekognitionImage:
         """
         try:
             response = self.rekognition_client.detect_labels(
-                Image=self.image, MaxLabels=max_labels)
-            labels = [RekognitionLabel(label) for label in response['Labels']]
+                Image=self.image, MaxLabels=max_labels
+            )
+            labels = [RekognitionLabel(label) for label in response["Labels"]]
             logger.info("Found %s labels in %s.", len(labels), self.image_name)
         except ClientError:
             logger.info("Couldn't detect labels in %s.", self.image_name)
@@ -75,23 +75,21 @@ class RekognitionImage:
             return labels
 
 
-
-
 def detect_challenge():
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon Rekognition image detection demo!")
-    print('-'*88)
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    rekognition_client = boto3.client('rekognition', region_name='us-east-1')
-   
-    test_challenge_url = 'https://awshackathongye.s3.amazonaws.com/7e7585bc14997713fc97ad325118b789.jpg'
+    print("-" * 88)
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    rekognition_client = boto3.client("rekognition", region_name="us-east-1")
+
+    test_challenge_url = (
+        "https://awshackathongye.s3.amazonaws.com/7e7585bc14997713fc97ad325118b789.jpg"
+    )
     image_response = requests.get(test_challenge_url)
 
     rekognitionImage = RekognitionImage(
-        {'Bytes': image_response.content}, "t-shirt", rekognition_client)
-    
-
-
+        {"Bytes": image_response.content}, "t-shirt", rekognition_client
+    )
 
     print(f"Detecting labels in {rekognitionImage.image_name}...")
     labels = rekognitionImage.detect_labels(100)
@@ -100,6 +98,7 @@ def detect_challenge():
     for label in labels:
         pprint(label.to_dict())
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
 
     detect_challenge()
