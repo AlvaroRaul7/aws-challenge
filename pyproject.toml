@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "challenge-aws"
+version = "0.1.0"
+description = "\"Challenge AWS\""
+authors = ["alvaroraul7 <lfvalare@espol.edu.ec>"]
+readme = "README.md"
+packages = [{include = "challenge_aws"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+logging = "^0.4.9.6"
+boto3 = "^1.26.14"
+requests = "^2.28.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
