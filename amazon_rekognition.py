@@ -84,9 +84,6 @@ def detect_challenge():
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     rekognition_client = boto3.client('rekognition', region_name='us-east-1')
    
-
-    
-   
     test_challenge_url = 'https://awshackathongye.s3.amazonaws.com/7e7585bc14997713fc97ad325118b789.jpg'
     image_response = requests.get(test_challenge_url)
 
