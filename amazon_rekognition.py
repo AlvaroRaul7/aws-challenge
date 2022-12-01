@@ -1,11 +1,9 @@
-import logging
+
 from pprint import pprint
 import boto3
 from botocore.exceptions import ClientError
 import requests
-
-
-logger = logging.getLogger(__name__)
+import json
 
 
 class RekognitionLabel:
@@ -67,9 +65,10 @@ class RekognitionImage:
                 Image=self.image, MaxLabels=max_labels
             )
             labels = [RekognitionLabel(label) for label in response["Labels"]]
-            logger.info("Found %s labels in %s.", len(labels), self.image_name)
+            
+           
         except ClientError:
-            logger.info("Couldn't detect labels in %s.", self.image_name)
+            print("Couldn't detect labels in %s.", self.image_name)
             raise
         else:
             return labels
@@ -77,9 +76,9 @@ class RekognitionImage:
 
 def detect_challenge():
     print("-" * 88)
-    print("Welcome to the Amazon Rekognition image detection demo!")
+    print("Welcome to the Amazon Rekognition image detection challenge!")
     print("-" * 88)
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    
     rekognition_client = boto3.client("rekognition", region_name="us-east-1")
 
     test_challenge_url = (
@@ -88,16 +87,35 @@ def detect_challenge():
     image_response = requests.get(test_challenge_url)
 
     rekognitionImage = RekognitionImage(
-        {"Bytes": image_response.content}, "t-shirt", rekognition_client
+        {"Bytes": image_response.content}, "skies", rekognition_client
     )
 
     print(f"Detecting labels in {rekognitionImage.image_name}...")
     labels = rekognitionImage.detect_labels(100)
     print(f"Found {len(labels)} labels.")
-
+    
+    listOfLabels=[]
     for label in labels:
-        pprint(label.to_dict())
+        
+        listOfLabels.append(label.to_dict()['name'])
+        
+    print(listOfLabels)
+       
+    return {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": json.dumps({
+            "Number of labels found": len(labels),
+            "Labels for the image ": listOfLabels
+        })
+    }
 
+
+def lambda_handler(event, context):
+    return detect_challenge()
+   
 
 if __name__ == "__main__":
 

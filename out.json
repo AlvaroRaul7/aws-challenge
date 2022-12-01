@@ -1,0 +1,1 @@
+{"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": "{\"Number of labels found\": 15, \"Labels for the image \": [\"Outer Space\", \"Astronomy\", \"Person\", \"Baby\", \"Wheel\", \"Machine\", \"Bicycle\", \"Vehicle\", \"Transportation\", \"Planet\", \"Head\", \"Globe\", \"Outdoors\", \"Night\", \"Nature\"]}"}
