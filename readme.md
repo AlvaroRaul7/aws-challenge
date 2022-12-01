@@ -25,9 +25,9 @@ us-east-1
 ### Probar el challenge de forma local (Opcional)
 - [ ] Instalar Poetry
   https://python-poetry.org/docs/basic-usage/
-  - [ ] Instalar dependencias con `poetry install`
-  - [ ] Activar el entorno virtual con `poetry shell`
-  - [ ] Correr el proyecto con `poetry run python amazon_rekognition.py`
+- [ ] Instalar dependencias con `poetry install`
+- [ ] Activar el entorno virtual con `poetry shell`
+- [ ] Correr el proyecto con `poetry run python amazon_rekognition.py`
 
 
 ### Desafío
