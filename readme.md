@@ -8,7 +8,7 @@
 Claves de acceso para configurar AWS CLI
 
 
-'''
+```
 ID de clave de acceso
 AKIASFSTGGZK37LGLRRP
 
@@ -17,7 +17,7 @@ bdVzEDe+7vkk2PWEhDwKKIiwH+TiVDMkll5J+XfO
 
 Region
 us-east-1
-'''
+```
 
 
 
@@ -43,11 +43,11 @@ us-east-1
 
 Se deberia esperar el siguiente response segun la imagen:
 
-'''
+```
 
 {"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": "{\"Number of labels found\": 15, \"Labels for the image \": [\"Outer Space\", \"Astronomy\", \"Person\", \"Baby\", \"Wheel\", \"Machine\", \"Bicycle\", \"Vehicle\", \"Transportation\", \"Planet\", \"Head\", \"Globe\", \"Outdoors\", \"Night\", \"Nature\"]}"}
 
-'''
+```
 
 ### Referencias
 
